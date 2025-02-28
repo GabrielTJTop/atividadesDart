@@ -1,5 +1,5 @@
  // sistema de estoque e categorias de produtos de uma loja de eletronicos.
-
+// atividadde realizada por Ackson Silva Miranda Santos/01726111
 import 'dart:io';
 
 void main() {
