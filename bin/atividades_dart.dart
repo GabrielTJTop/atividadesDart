@@ -1,120 +1,64 @@
+//Atividade3 -- não sei sé ta correta mais bora tentar, "Calendário". feita por Enzo Silva Fortes 01707789
 import 'dart:io';
-// Atividade realizada por Enzo Silva Fortes 01707789
-double saldo = 0.0;
 
 void main() {
-  while (true) {
-    print("\nInforme uma opção (deposito, transferencia, retirada, pagamento, sair):");
-    String? operacao = stdin.readLineSync()?.toLowerCase();
+  print('Calendário que eu espero que de certo!');
+  solicitarMes(); //Vai ta fazendo a chamada da função solicitarMes pro usuário.
+}
 
-    if (operacao == "sair") {
-      print("Finalizando...");
-      break;
-    } else if (operacao == "deposito") {
-      deposito();
-    } else if (operacao == "transferencia") {
-      transferencia();
-    } else if (operacao == "retirada") {
-      retirada();
-    } else if (operacao == "pagamento") {
-      pagamento();
+//Função recursiva que foi pedida, Vai Solicitar é validar a entrada do usuário
+void solicitarMes() {
+  print('Digite um numero de 1 a 12 para saber o Mês:');
+
+  String? input = stdin.readLineSync(); //Ler a entrada do Usuario
+//Aqui a função try vai ta sendo usada pra tentar converter "numero" par inteiro é Mes para "String"
+  try {
+    int numero = int.parse(input!);
+    String mes = obterMes(numero);
+//Coloquei um If pra saber sé é verificado o Mês vai esta sendo válido
+    if (mes.contains("inválido")) {
+      print(mes); //print usado pra ixibir a mensagem Mês
+      solicitarMes(); // chamada recursiva pra fazer uma nova tentativa
     } else {
-      print("Opção inválida. Tente novamente.");
+      print("O mês correspondete é: $mes");
     }
+    //função catch usada pra inválidar como letras ou símbolos
+  } catch (e) {
+    print("Entrada inválida! Porfavor, insira algum Número.");
+    solicitarMes(); // Novamente uma chamada recursiva pra fazer outra tentativa
   }
 }
 
-void deposito() {
-  double valor = 0.0;
-  while (valor <= 0) {
-    print("Informe o valor para depósito:");
-    String? entrada = stdin.readLineSync();
-    
-    valor = double.tryParse(entrada ?? '') ?? 0.0;
-
-    if (valor <= 0) {
-      print("Valor inválido. Tente novamente.");
-    }
-  }
-
-  saldo += valor;
-  print("Depósito de R\$${valor.toStringAsFixed(2)} realizado com sucesso.");
-  print("Saldo atual: R\$${saldo.toStringAsFixed(2)}");
-}
-
-void transferencia() {
-  if (saldo <= 0) {
-    print("Saldo insuficiente para realizar transferência.");
-    return;
-  }
-
-  double valor = 0.0;
-  while (valor <= 0 || valor > saldo) {
-    print("Informe o valor para transferência:");
-    String? entrada = stdin.readLineSync();
-    
-    valor = double.tryParse(entrada ?? '') ?? 0.0;
-
-    if (valor <= 0) {
-      print("Valor inválido. Tente novamente.");
-    } else if (valor > saldo) {
-      print("Saldo insuficiente. Tente um valor menor.");
-    }
-  }
-
-  print("Informe o número da conta do destinatário:");
-  String? contaDestino = stdin.readLineSync();
-
-  if (contaDestino != null && contaDestino.isNotEmpty) {
-    saldo -= valor;
-    print("Transferência de R\$${valor.toStringAsFixed(2)} para a conta $contaDestino realizada com sucesso.");
-    print("Saldo atual: R\$${saldo.toStringAsFixed(2)}");
-  } else {
-    print("Conta de destino inválida.");
+// essa função aqui vai ta fazendo que retorne o Mês de acordo com o numero escolhido
+String obterMes(int numero) {
+  switch (numero) {
+    case 1:
+      return 'Janeiro';
+    case 2:
+      return 'Fevereiro';
+    case 3:
+      return 'Março';
+    case 4:
+      return 'Abril';
+    case 5:
+      return 'Maio';
+    case 6:
+      return 'Junho';
+    case 7:
+      return 'Julho';
+    case 8:
+      return 'Agosto';
+    case 9:
+      return 'Setembro';
+    case 10:
+      return 'Outubro';
+    case 11:
+      return 'Novembro';
+    case 12:
+      return 'Dezembro';
+    default:
+      return 'Número inválido. Por favor, insira um número de 1 a 12.';
   }
 }
-
-void retirada() {
-  if (saldo <= 0) {
-    print("Saldo insuficiente para realizar retirada.");
-    return;
-  }
-
-  double valor = 0.0;
-  while (valor <= 0 || valor > saldo) {
-    print("Informe o valor para retirada:");
-    String? entrada = stdin.readLineSync();
-    
-    valor = double.tryParse(entrada ?? '') ?? 0.0;
-
-    if (valor <= 0) {
-      print("Valor inválido. Tente novamente.");
-    } else if (valor > saldo) {
-      print("Saldo insuficiente. Tente um valor menor.");
-    }
-  }
-
-  saldo -= valor;
-  print("Retirada de R\$${valor.toStringAsFixed(2)} realizada com sucesso.");
-  print("Saldo atual: R\$${saldo.toStringAsFixed(2)}");
-}
-
-void pagamento() {
-  double valor = 0.0;
-  while (valor <= 0 || valor > saldo) {
-    print("Informe o valor para pagamento:");
-    String? entrada = stdin.readLineSync();
-    
-    valor = double.tryParse(entrada ?? '') ?? 0.0;
-
-    if (valor <= 0) {
-      print("Valor inválido. Tente novamente.");
-    } else if (valor > saldo) {
-      print("Saldo insuficiente. Tente um valor menor.");
-    }
-  }
-
-  saldo -= valor;
-  print("Pagamento de R\$${valor.toStringAsFixed(2)} realizado com sucesso.");
-  print("Saldo atual: R\$${saldo.toStringAsFixed(2)}");
-}
+//foi feito metade dele pela madrugrada 02:00
+// código terminado 09:57 do dia 28/02/2025.
